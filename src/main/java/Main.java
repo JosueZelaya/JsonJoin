@@ -36,16 +36,19 @@ public class Main {
             print("Please specify the path of the output file: ");
             String outPutPath = getInput();
             
+            print("Loading files...");
             Stream<RowA> streamA = FileManager.loadFileStream(firstFile, RowA.class);
             Stream<RowB> streamB = FileManager.loadFileStream(secondFile, RowB.class);
             Processor processor = new Processor(streamA, streamB);
+            print("Processing files...");
             processor.start();
             
-            //Object to JSON in file            
-            FileManager.saveResults(processor.getResult(), outPutPath);
-            print("RESULTS ARE SAVED IN: " + outPutPath);
+            //Object to JSON in file  
+            print("Saving results...");
+            FileManager.saveResults(processor.getResult(), outPutPath);            
             
             printResults(processor.getResult());
+            print("RESULTS ARE SAVED IN: " + outPutPath);
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
