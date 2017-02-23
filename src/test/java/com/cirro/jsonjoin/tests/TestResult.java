@@ -30,18 +30,23 @@ public class TestResult {
     public void TestResult() {
         try {            
             ResourceBundle configBundle = ResourceBundle.getBundle("paths");
-            System.out.println("Obtaining file path from config file");            
+            System.out.println("Obtaining file path from config file");
             File firstFile = new File(configBundle.getString("file1"));
             File secondFile = new File(configBundle.getString("file2"));
+            
+            System.out.println("Loading files");
             Stream<RowA> streamA = FileManager.loadFileStream(firstFile, RowA.class);
             Stream<RowB> streamB = FileManager.loadFileStream(secondFile, RowB.class);
             
             Processor processor = new Processor(streamA, streamB);
-            processor.start();                      
+            
+            System.out.println("Start processing");
+            processor.start();                  
+            System.out.println("Verifing results");
             Set<Double> uniqueXs = new HashSet<>();
             processor.getResult().forEach((item) -> {
                 uniqueXs.add(item.getT1x());
-            });
+            });            
             System.out.println("Total rows: " + processor.getResult().size() + ". Total unique x values: " + uniqueXs.size());
             Assert.assertEquals(processor.getResult().size(), uniqueXs.size());
         } catch (IOException ex) {
