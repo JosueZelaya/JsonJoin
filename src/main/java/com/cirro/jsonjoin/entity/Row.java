@@ -5,10 +5,12 @@
  */
 package com.cirro.jsonjoin.entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author alexander
  */
-public interface Row {
+public interface Row extends Serializable{
     
 }

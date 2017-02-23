@@ -52,16 +52,11 @@ public class Processor {
         });        
         
         //Group by X
-        Map<Double, ResponseRow> counting = result.stream().collect(groupingBy(ResponseRow::getT1x, 
-                        collectingAndThen(reducing((a, b) -> new ResponseRow(a, b)),
-                                Optional::get
-                        )
-                )
-        );
+        Map<Double, ResponseRow> groupedValues = groupByX(result);
         
-        // Assign the filtered values to response list
+        // Assign the grouped values to response list
         result = new ArrayList<>();
-        counting.forEach((x, item) -> {
+        groupedValues.forEach( (x, item) -> {
                     result.add(item);
                 });
         
@@ -75,6 +70,18 @@ public class Processor {
     
     private void addToResponse(RowA rA, RowB rB) {
         result.add(new ResponseRow(rA.getX(), rA.getY(), rB.getY()));
+    }
+    
+    private Map<Double, ResponseRow> groupByX(List<ResponseRow> response){
+        return response.stream().collect(
+            groupingBy(
+                ResponseRow::getT1x, 
+                collectingAndThen(
+                        reducing((a, b) -> new ResponseRow(a, b)),
+                        Optional::get
+                )
+            )
+        );
     }
     
 }
