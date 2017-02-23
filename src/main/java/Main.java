@@ -43,6 +43,7 @@ public class Main {
             
             //Object to JSON in file            
             FileManager.saveResults(processor.getResult(), outPutPath);
+            print("RESULTS ARE SAVED IN: " + outPutPath);
             
             printResults(processor.getResult());
         } catch (IOException ex) {
