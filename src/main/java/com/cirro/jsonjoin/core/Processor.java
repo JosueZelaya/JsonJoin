@@ -47,7 +47,8 @@ public class Processor {
         
         //Join streamA and streamB on z=z
         .forEach( rA -> {
-            streamB.stream().filter( rB -> matchZ (rA, rB) )
+            streamB.stream()
+                    .filter( rB -> matchZ (rA, rB) )
                     .forEach( rB -> addToResponse(rA, rB));
         });        
         
@@ -56,7 +57,8 @@ public class Processor {
         
         // Assign the grouped values to response list
         result = new ArrayList<>();
-        groupedValues.forEach( (x, item) -> {
+        groupedValues
+                .forEach( (x, item) -> {
                     result.add(item);
                 });
         
