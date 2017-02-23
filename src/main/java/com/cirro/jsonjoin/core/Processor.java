@@ -43,7 +43,7 @@ public class Processor {
     public void start(){
         
         //Filtered by z > 0
-        streamA.stream().filter(rA -> rA.getZ() > 20)
+        streamA.stream().filter(rA -> rA.getZ() > 0)
         
         //Join streamA and streamB on z=z
         .forEach( rA -> {
